@@ -8,18 +8,24 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    await signIn('credentials', {
+    const res = await signIn('credentials', {
+      redirect: false,
       username,
       password,
-      callbackUrl: '/admin',
     });
+
+    if (res?.ok) {
+      window.location.href = '/admin';
+    } else {
+      alert('Fel användarnamn eller lösenord');
+    }
   };
 
   return (
     <div className="min-h-screen bg-white text-gray-800 flex items-center justify-center px-4">
       <div className="bg-gray-100 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
-        
+
         <input
           type="text"
           placeholder="Username"

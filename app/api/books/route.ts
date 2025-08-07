@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 
+type BookUpdateInput = {
+  title: string;
+  description: string;
+  link: string;
+  imageUrl?: string;
+};
+
 export async function GET() {
   const client = await clientPromise;
   const db = client.db('books_db');
@@ -32,14 +39,15 @@ export async function PUT(req: Request) {
   const client = await clientPromise;
   const db = client.db('books_db');
 
-  const updateDoc: any = {
-    title,
-    description,
-    link,
-  };
-  if (imageBase64) {
-    updateDoc.imageUrl = imageBase64;
-  }
+  const updateDoc: BookUpdateInput = {
+  title,
+  description,
+  link,
+};
+
+if (imageBase64) {
+  updateDoc.imageUrl = imageBase64;
+}
 
   const result = await db.collection('books').updateOne(
     { _id: new ObjectId(id) },

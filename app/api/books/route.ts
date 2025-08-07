@@ -11,7 +11,7 @@ type BookUpdateInput = {
 
 export async function GET() {
   const client = await clientPromise;
-  const db = client.db('books');
+  const db = client.db('books_db');
   const books = await db.collection('books').find().toArray();
   return NextResponse.json(books);
 }
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const { title, imageBase64, description, link } = body;
 
   const client = await clientPromise;
-  const db = client.db('books');
+  const db = client.db('books_db');
   const result = await db.collection('books').insertOne({
     title,
     imageUrl: imageBase64,
@@ -37,17 +37,17 @@ export async function PUT(req: Request) {
   const { id, title, imageBase64, description, link } = body;
 
   const client = await clientPromise;
-  const db = client.db('books');
+  const db = client.db('books_db');
 
   const updateDoc: BookUpdateInput = {
-  title,
-  description,
-  link,
-};
+    title,
+    description,
+    link,
+  };
 
-if (imageBase64) {
-  updateDoc.imageUrl = imageBase64;
-}
+  if (imageBase64) {
+    updateDoc.imageUrl = imageBase64;
+  }
 
   const result = await db.collection('books').updateOne(
     { _id: new ObjectId(id) },
@@ -62,7 +62,7 @@ export async function DELETE(req: Request) {
   const { id } = body;
 
   const client = await clientPromise;
-  const db = client.db('books');
+  const db = client.db('books_db');
 
   const result = await db.collection('books').deleteOne({ _id: new ObjectId(id) });
 

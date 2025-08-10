@@ -1,37 +1,59 @@
-'use client';
+"use client";
 
-import { Book } from '../types';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import React from "react";
+import { Book } from "../types";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-export default function Card({ book }: { book: Book }) {
+interface CardProps {
+  book: Book;
+  onHover?: () => void;
+  onHoverLeave?: () => void;
+}
+
+export default function Card({ book, onHover, onHoverLeave }: CardProps) {
   const CardContent = (
     <motion.div
-  className="backdrop-blur-lg bg-white/30 shadow-lg rounded-xl overflow-hidden w-full h-[8cm] flex flex-col"
-  whileHover={{ scale: 1.05 }}
->
-      <div className="relative w-full h-[60%]">
-        <Image src={book.imageUrl} alt={book.title} layout="fill" objectFit="cover" />
+      className="backdrop-blur-lg bg-white/30 shadow-lg rounded-xl overflow-hidden w-full flex flex-col"
+      whileHover={{ scale: 1.03 }}
+      onMouseEnter={onHover}
+      onMouseLeave={onHoverLeave}
+      style={{ cursor: book.link ? "pointer" : "default" }}
+    >
+      <div className="relative w-full pb-[100%] bg-white flex items-center justify-center">
+        {book.imageUrl && (
+          <Image
+            src={book.imageUrl}
+            alt={book.title}
+            fill
+            style={{ objectFit: "contain" }}
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        )}
       </div>
+
       <div className="p-2 text-sm text-center font-semibold text-gray-700">
         {book.title}
       </div>
-      <div className="px-2 text-xs text-gray-600 overflow-auto">
-        {book.description}
-      </div>
+
+      <div className="px-2 pb-2 text-xs text-gray-600">{book.description}</div>
     </motion.div>
   );
 
-  return book.link ? (
-    <a
-      href={book.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block cursor-pointer"
-    >
-      {CardContent}
-    </a>
-  ) : (
-    CardContent
-  );
+  if (book.link) {
+    return (
+      <a
+        href={book.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseEnter={onHover}
+        onMouseLeave={onHoverLeave}
+        className="block"
+      >
+        {CardContent}
+      </a>
+    );
+  }
+
+  return CardContent;
 }

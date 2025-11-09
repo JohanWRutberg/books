@@ -1,4 +1,5 @@
-export const dynamic = "force-static"; // säkerställer att den inte blir server-renderad
+export const revalidate = 0; // stäng av ISR helt
+export const dynamic = "force-static"; // säkerställ statisk output
 
 export async function GET() {
   const baseUrl = "https://markedbytropes.vercel.app";
@@ -34,8 +35,12 @@ export async function GET() {
   </urlset>`;
 
   return new Response(xml, {
+    status: 200, // viktig! tvingar alltid 200 OK
     headers: {
       "Content-Type": "application/xml",
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
     },
   });
 }

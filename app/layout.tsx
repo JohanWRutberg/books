@@ -1,15 +1,16 @@
-import './globals.css';
-import { Montserrat } from 'next/font/google';
-import { ReactNode } from 'react';
-//import { Inter } from 'next/font/google';
-import { AuthProvider } from './providers/auth';
+import "./globals.css";
+import { Montserrat } from "next/font/google";
+import { ReactNode } from "react";
+import { AuthProvider } from "./providers/auth";
 
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
-//const inter = Inter({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata = {
-  title: 'Book Browser',
-  description: 'Search and manage book cards',
+  title: "Book Browser",
+  description: "Search and manage book cards",
+  verification: {
+    google: "gUcFRMHJKCI2-rZJPYiW9SXpgPa9INnFujKGaJbDVB8",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

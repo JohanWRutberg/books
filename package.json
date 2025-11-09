@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "^14.2.15",
+    "critters": "^0.0.23",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.537.0",
     "mongodb": "^6.18.0",

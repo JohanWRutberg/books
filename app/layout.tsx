@@ -1,9 +1,6 @@
 import "./globals.css";
-import { Montserrat } from "next/font/google";
 import { ReactNode } from "react";
 import { AuthProvider } from "./providers/auth";
-
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata = {
   title: "Book Browser",
@@ -16,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

@@ -1,18 +1,12 @@
-export default async function sitemap() {
-  const baseUrl = "https://markedbytropes.vercel.app";
+import { MetadataRoute } from "next";
 
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${baseUrl}/`,
-      lastModified: new Date().toISOString().split("T")[0],
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date().toISOString().split("T")[0],
-      changeFrequency: "weekly",
-      priority: 0.8,
+      url: "https://markedbytropes.vercel.app/",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
     },
   ];
 }
